@@ -100,9 +100,9 @@ class ButtonState:
             return setter, getter
 
         if self.controller == Controller.PRO_CONTROLLER:
-            self._available_buttons = {'y', 'x', 'b', 'a', 'r', 'zr',
+            self._available_buttons = {'y', 'x', 'b', 'a', 'r', 'zr', 'l', 'zl',
                                        'minus', 'plus', 'r_stick', 'l_stick', 'home', 'capture',
-                                       'down', 'up', 'right', 'left', 'l', 'zl'}
+                                       'down', 'up', 'right', 'left'}
         elif self.controller == Controller.JOYCON_R:
             self._available_buttons = {'y', 'x', 'b', 'a', 'sr', 'sl', 'r', 'zr',
                                        'plus', 'r_stick', 'home'}
@@ -176,6 +176,32 @@ class ButtonState:
         self._byte_1 = self._byte_2 = self._byte_3 = 0
 
 
+async def button_down(controller_state, *buttons):
+    if not buttons:
+        raise ValueError('No Buttons were given.')
+
+    button_state = controller_state.button_state
+
+    for button in buttons:
+        # push button
+        button_state.set_button(button)
+
+    # send report
+    await controller_state.send()
+
+async def button_up(controller_state, *buttons):
+    if not buttons:
+        raise ValueError('No Buttons were given.')
+
+    button_state = controller_state.button_state
+
+    for button in buttons:
+        # release button
+        button_state.set_button(button, pushed=False)
+
+    # send report
+    await controller_state.send()
+
 async def button_push(controller_state, *buttons, sec=0.1):
     if not buttons:
         raise ValueError('No Buttons were given.')
@@ -245,8 +271,8 @@ class RightStickCalibration(_StickCalibration):
 class StickState:
     def __init__(self, h=0, v=0, calibration: _StickCalibration = None):
         for val in (h, v):
-            if not -0x1000 < val < 0x1000:
-                raise ValueError(f'Stick values must be in ({-0x1000},{0x1000})')
+            if not 0 <= val < 0x1000:
+                raise ValueError(f'Stick values must be in [0,{0x1000})')
 
         self._h_stick = h
         self._v_stick = v
@@ -254,16 +280,16 @@ class StickState:
         self._calibration = calibration
 
     def set_h(self, value):
-        if not -0x1000 < value < 0x1000:
-            raise ValueError(f'Stick values must be in ({-0x1000},{0x1000})')
+        if not 0 <= value < 0x1000:
+            raise ValueError(f'Stick values must be in [0,{0x1000})')
         self._h_stick = value
 
     def get_h(self):
         return self._h_stick
 
     def set_v(self, value):
-        if not -0x1000 < value < 0x1000:
-            raise ValueError(f'Stick values must be in ({-0x1000},{0x1000})')
+        if not 0 <= value < 0x1000:
+            raise ValueError(f'Stick values must be in [0,{0x1000})')
         self._v_stick = value
 
     def get_v(self):

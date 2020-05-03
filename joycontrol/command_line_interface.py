@@ -120,12 +120,19 @@ class ControllerCLI:
                 continue
 
             buttons_to_push = []
+            is_button_down = False
+            is_button_up = False
 
             for command in user_input.split('&&'):
                 cmd, *args = command.split()
 
                 if cmd == 'exit':
                     return
+
+                if cmd == '_u':
+                    is_button_up = True
+                elif cmd == '_d':
+                    is_button_down = True
 
                 available_buttons = self.controller_state.button_state.get_available_buttons()
 
@@ -149,7 +156,12 @@ class ControllerCLI:
                     print('command', cmd, 'not found, call help for help.')
 
             if buttons_to_push:
-                await button_push(self.controller_state, *buttons_to_push)
+                if is_button_down:
+                    await button_down(self.controller_state, *buttons_to_push)
+                elif is_button_up:
+                    await button_up(self.controller_state, *buttons_to_push)
+                else
+                    await button_push(self.controller_state, *buttons_to_push)
             else:
                 try:
                     await self.controller_state.send()
