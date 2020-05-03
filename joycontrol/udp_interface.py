@@ -46,7 +46,7 @@ class ControllerCLI:
 
     def _udp_recv(self):
         data = self.udp_sk.recv(1024) 
-        return data
+        return str(data, encoding="utf-8")
 
     def __init__(self, controller_state: ControllerState):
         self.controller_state = controller_state
