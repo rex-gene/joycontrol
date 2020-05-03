@@ -51,7 +51,7 @@ class ControllerCLI:
     def __init__(self, controller_state: ControllerState):
         self.controller_state = controller_state
         self.commands = {}
-        self._udp_socket_init(self)
+        self._udp_socket_init()
 
     async def cmd_help(self):
         print('Button commands:')
