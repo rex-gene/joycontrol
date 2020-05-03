@@ -3,7 +3,7 @@ import logging
 
 from aioconsole import ainput
 
-from joycontrol.controller_state import button_push, ControllerState
+from joycontrol.controller_state import button_push, ControllerState, button_down, button_up
 from joycontrol.transport import NotConnectedError
 
 logger = logging.getLogger(__name__)
