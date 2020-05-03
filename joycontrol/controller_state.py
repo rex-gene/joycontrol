@@ -254,7 +254,7 @@ class StickState:
         self._calibration = calibration
 
     def set_h(self, value):
-        if not -0x1000 < val < 0x1000:
+        if not -0x1000 < value < 0x1000:
             raise ValueError(f'Stick values must be in ({-0x1000},{0x1000})')
         self._h_stick = value
 
@@ -262,7 +262,7 @@ class StickState:
         return self._h_stick
 
     def set_v(self, value):
-        if not -0x1000 < val < 0x1000:
+        if not -0x1000 < value < 0x1000:
             raise ValueError(f'Stick values must be in ({-0x1000},{0x1000})')
         self._v_stick = value
 
