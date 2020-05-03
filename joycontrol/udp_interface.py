@@ -44,7 +44,7 @@ class ControllerCLI:
         self.udp_sk = s
 
 
-    def _udp_recv(self)
+    def _udp_recv(self):
         data = self.udp_sk.recv(1024) 
         return data
 
