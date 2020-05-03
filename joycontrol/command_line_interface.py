@@ -160,7 +160,7 @@ class ControllerCLI:
                     await button_down(self.controller_state, *buttons_to_push)
                 elif is_button_up:
                     await button_up(self.controller_state, *buttons_to_push)
-                else
+                else:
                     await button_push(self.controller_state, *buttons_to_push)
             else:
                 try:
