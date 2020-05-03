@@ -123,7 +123,7 @@ class ControllerCLI:
             is_button_down = False
             is_button_up = False
 
-            for command in user_input.split('&&'):
+            for command in user_input.split('|'):
                 cmd, *args = command.split()
 
                 if cmd == 'exit':
@@ -152,7 +152,7 @@ class ControllerCLI:
                         print(e)
                 elif cmd in available_buttons:
                     buttons_to_push.append(cmd)
-                else:
+                elif cmd[0] != '_':
                     print('command', cmd, 'not found, call help for help.')
 
             if buttons_to_push:

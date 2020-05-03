@@ -9,7 +9,7 @@ from contextlib import contextmanager
 from aioconsole import ainput
 
 from joycontrol import logging_default as log, utils
-from joycontrol.command_line_interface import ControllerCLI
+from joycontrol.udp_interface import ControllerCLI
 from joycontrol.controller import Controller
 from joycontrol.controller_state import ControllerState, button_push
 from joycontrol.memory import FlashMemory
