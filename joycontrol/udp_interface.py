@@ -127,7 +127,7 @@ class ControllerCLI:
     async def run(self):
         while True:
             user_input = self._udp_recv()
-            if not user_input or len(user_input) == 0:
+            if not user_input:
                 continue
 
             buttons_to_push = []
@@ -135,6 +135,9 @@ class ControllerCLI:
             is_button_up = False
 
             for command in user_input.split('|'):
+                if len(command) == 0:
+                    continue
+
                 cmd, *args = command.split()
 
                 if cmd == 'exit':
