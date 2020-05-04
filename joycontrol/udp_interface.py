@@ -57,6 +57,9 @@ class ControllerCLI:
     def _udp_socket_init(self, port):
         if port == None:
             port = 9081
+        else:
+            port=int(port)
+
         s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
         s.bind(("0.0.0.0",port))
         self.udp_sk = s
