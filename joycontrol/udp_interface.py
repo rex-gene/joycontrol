@@ -147,21 +147,7 @@ class ControllerCLI:
 
                 available_buttons = self.controller_state.button_state.get_available_buttons()
 
-                if hasattr(self, f'cmd_{cmd}'):
-                    try:
-                        result = await getattr(self, f'cmd_{cmd}')(*args)
-                        if result:
-                            print(result)
-                    except Exception as e:
-                        print(e)
-                elif cmd in self.commands:
-                    try:
-                        result = await self.commands[cmd](*args)
-                        if result:
-                            print(result)
-                    except Exception as e:
-                        print(e)
-                elif cmd in available_buttons:
+                if cmd in available_buttons:
                     buttons_to_push.append(cmd)
                 elif cmd[0] != '_':
                     print('command', cmd, 'not found, call help for help.')

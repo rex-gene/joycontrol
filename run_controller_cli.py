@@ -144,16 +144,6 @@ async def _main(controller, reconnect_bt_addr=None, capture_file=None, spi_flash
     # Create command line interface and add some extra commands
     cli = ControllerCLI(controller_state)
 
-    # Wrap the script so we can pass the controller state. The doc string will be printed when calling 'help'
-    async def _run_test_controller_buttons():
-        """
-        test_buttons - Navigates to the "Test Controller Buttons" menu and presses all buttons.
-        """
-        await test_controller_buttons(controller_state)
-
-    # add the script from above
-    cli.add_command('test_buttons', _run_test_controller_buttons)
-
     await cli.run()
 
     logger.info('Stopping communication...')

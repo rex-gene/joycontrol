@@ -305,6 +305,7 @@ class ControllerProtocol(BaseProtocol):
             digit *= 0x100
 
         size = sub_command_data[4]
+        logger.info('read size:%d, read offset:%d' % (size, offset))
 
         if self.spi_flash is not None:
             spi_flash_data = self.spi_flash[offset: offset + size]
