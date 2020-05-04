@@ -22,7 +22,7 @@ class HidDevice:
             if adapter_info is None:
                 continue
             elif device_id is None or device_id == adapter_info['Address'] or path.endswith(str(device_id)):
-                logger.debug("device_id:%s" % device_id)
+                logger.debug("device_id:%s" % adapter_info['Address'])
                 obj = bus.get_object('org.bluez', path)
                 self.adapter = dbus.Interface(obj, 'org.bluez.Adapter1')
                 self.address = adapter_info['Address']
