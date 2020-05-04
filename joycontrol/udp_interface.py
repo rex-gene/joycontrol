@@ -54,9 +54,11 @@ class ControllerCLI:
         print('Commands can be chained using "&&"')
         print('Type "exit" to close.')
 
-    def _udp_socket_init(self):
+    def _udp_socket_init(self, port):
+        if port == None:
+            port = 9081
         s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-        s.bind(("0.0.0.0",9081))
+        s.bind(("0.0.0.0",port))
         self.udp_sk = s
 
 
@@ -64,10 +66,10 @@ class ControllerCLI:
         data = self.udp_sk.recv(1024) 
         return str(data, encoding="utf-8")
 
-    def __init__(self, controller_state: ControllerState):
+    def __init__(self, controller_state: ControllerState, port):
         self.controller_state = controller_state
         self.commands = {}
-        self._udp_socket_init()
+        self._udp_socket_init(port)
 
     async def cmd_help(self):
         print('Button commands:')
