@@ -142,7 +142,7 @@ async def _main(controller, reconnect_bt_addr=None, capture_file=None, spi_flash
     controller_state = protocol.get_controller_state()
 
     # Create command line interface and add some extra commands
-    cli = ControllerCLI(controller_state,port)
+    cli = ControllerCLI(controller_state, port)
 
     await cli.run()
 
@@ -190,7 +190,7 @@ if __name__ == '__main__':
                   reconnect_bt_addr=args.reconnect_bt_addr,
                   capture_file=capture_file,
                   spi_flash=spi_flash,
-                  device_id=args.device_id
+                  device_id=args.device_id,
                   port=args.port
                   )
         )
