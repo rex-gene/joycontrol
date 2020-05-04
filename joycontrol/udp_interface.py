@@ -38,6 +38,22 @@ def _print_doc(string):
 
 
 class ControllerCLI:
+    async def cmd_help(self):
+        print('Button commands:')
+        print(', '.join(self.controller_state.button_state.get_available_buttons()))
+        print()
+        print('Commands:')
+        for name, fun in inspect.getmembers(self):
+            if name.startswith('cmd_') and fun.__doc__:
+                _print_doc(fun.__doc__)
+
+        for name, fun in self.commands.items():
+            if fun.__doc__:
+                _print_doc(fun.__doc__)
+
+        print('Commands can be chained using "&&"')
+        print('Type "exit" to close.')
+
     def _udp_socket_init(self):
         s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
         s.bind(("0.0.0.0",9081))
