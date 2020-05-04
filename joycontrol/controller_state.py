@@ -278,6 +278,8 @@ class StickState:
         self._v_stick = v
 
         self._calibration = calibration
+        if not calibration is None:
+            self.set_center()
 
     def set_h(self, value):
         if not 0 <= value < 0x1000:
