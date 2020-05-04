@@ -127,7 +127,7 @@ class ControllerCLI:
     async def run(self):
         while True:
             user_input = self._udp_recv()
-            if not user_input:
+            if not user_input or len(user_input) == 0:
                 continue
 
             buttons_to_push = []
