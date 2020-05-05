@@ -52,10 +52,8 @@ async def create_hid_server(protocol_factory, ctl_psm=17, itr_psm=19, device_id=
         try:
             hid = HidDevice(device_id=device_id)
 
-            # ctl_sock.bind((hid.address, ctl_psm))
-            # itr_sock.bind((hid.address, itr_psm))
-            ctl_sock.bind((socket.BDADDR_ANY, ctl_psm))
-            itr_sock.bind((socket.BDADDR_ANY, itr_psm))
+            ctl_sock.bind((hid.address, ctl_psm))
+            itr_sock.bind((hid.address, itr_psm))
         except OSError as err:
             logger.warning(err)
             # If the ports are already taken, this probably means that the bluez "input" plugin is enabled.
